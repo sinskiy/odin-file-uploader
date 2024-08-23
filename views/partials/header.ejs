@@ -1,0 +1,12 @@
+<header class="header">
+  <a href="/" aria-label="home" class="styled logo">file uploader</a>
+  <nav class="nav">
+    <% if (locals.user) { %>
+    <p style="padding: 0.5rem; font-weight: 500"><%= user.username %></p>
+    <a href="/logout">log out</a>
+    <% } else { %>
+    <a href="/login">log in</a>
+    <a href="/signup">sign up</a>
+    <% } %>
+  </nav>
+</header>
