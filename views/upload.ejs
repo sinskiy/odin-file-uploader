@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head', { title: "Upload file" }) %>
+    <link rel="stylesheet" href="/form.css" />
+  </head>
+  <body>
+    <main>
+      <h1>log in</h1>
+      <%# TODO: check errors %>
+      <%- include('partials/errors') %>
+      <form
+        action="/files/upload"
+        method="post"
+        enctype="multipart/form-data"
+        class="form"
+      >
+        <input type="file" name="file" />
+        <button type="submit" class="primary">submit</button>
+      </form>
+    </main>
+  </body>
+</html>
