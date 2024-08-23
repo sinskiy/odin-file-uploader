@@ -9,26 +9,6 @@
   padding: 0;
 }
 
-html {
-  color-scheme: light dark;
-  scroll-behavior: smooth;
-}
-
-html {
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  text-size-adjust: none;
-}
-body,
-input,
-button,
-textarea,
-select {
-  font-synthesis: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 ul[role="list"] {
   list-style-type: none;
 }
