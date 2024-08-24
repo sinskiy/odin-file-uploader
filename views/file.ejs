@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <%- include('partials/head', { title: locals.file ? file.originalName : "Home" }) %>
+    <link rel="stylesheet" href="/file.css" />
   </head>
   <body>
     <%- include('partials/header') %>
@@ -12,7 +13,12 @@
       <h2><%= file.originalName %></h2>
       <p>TODO: time</p>
       <p>TODO: size</p>
-      <a href="/files/<%= file.id %>/delete">delete file</a>
+      <nav class="file-nav">
+        <form action="" method="post">
+          <button type="submit" class="primary">download</button>
+        </form>
+        <a href="/files/<%= file.id %>/delete">delete</a>
+      </nav>
       <% } else { %>
       <h2>no file found</h2>
       <% } %>

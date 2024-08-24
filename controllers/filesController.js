@@ -16,6 +16,10 @@ function uploadGet(req, res) {
 }
 
 async function uploadPost(req, res, next) {
+  //  TODO: render  with errors
+  if (!req.file) {
+    return res.render("upload");
+  }
   const { folderId } = req.params;
   const { originalname, filename } = req.file;
   console.log(req.params, folderId ? Number(folderId) : null);
@@ -47,6 +51,22 @@ async function fileGet(req, res, next) {
   }
 }
 
+async function filePost(req, res, next) {
+  const { fileId } = req.params;
+  try {
+    const file = await prisma.file.findUniqueOrThrow({
+      where: {
+        id: Number(fileId),
+      },
+    });
+    // sus that we have to use public/, but it works
+    const path = `public/uploads/${file.fileName}`;
+    res.download(path, file.originalName);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function deleteGet(req, res, next) {
   const { fileId } = req.params;
   try {
@@ -62,4 +82,11 @@ async function deleteGet(req, res, next) {
   }
 }
 
-module.exports = { filesGet, uploadGet, uploadPost, fileGet, deleteGet };
+module.exports = {
+  filesGet,
+  uploadGet,
+  uploadPost,
+  fileGet,
+  filePost,
+  deleteGet,
+};
