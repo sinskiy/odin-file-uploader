@@ -19,3 +19,11 @@ model User {
   username String @unique @db.VarChar(30)
   password String @db.VarChar(255)
 }
+
+model Folder {
+  id       Int      @id @default(autoincrement())
+  parentId Int      @unique
+  parent   Folder?  @relation("Parent", fields: [parentId], references: [id])
+  children Folder[] @relation("Parent")
+  name     String   @db.VarChar(30)
+}
