@@ -21,6 +21,14 @@ model User {
 }
 
 model Folder {
-  id   Int    @id @default(autoincrement())
-  name String @db.VarChar(30)
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(30)
+  files File[]
+}
+
+model File {
+  id       Int     @id @default(autoincrement())
+  name     String  @db.VarChar(255)
+  folder   Folder? @relation(fields: [folderId], references: [id])
+  folderId Int?
 }
