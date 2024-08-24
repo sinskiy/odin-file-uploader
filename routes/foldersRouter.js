@@ -5,6 +5,7 @@ const {
   createGet,
   createPost,
   folderGet,
+  deleteGet,
 } = require("../controllers/foldersController");
 const { uploadGet, uploadPost } = require("../controllers/filesController");
 const { isUser } = require("../controllers/authController");
@@ -15,5 +16,6 @@ router.post("/create", createPost);
 router.get("/:folderId", isUser, folderGet);
 router.get("/:folderId/upload", isUser, uploadGet);
 router.post("/:folderId/upload", upload.single("file"), uploadPost);
+router.get("/:folderId/delete", deleteGet);
 
 module.exports = router;
