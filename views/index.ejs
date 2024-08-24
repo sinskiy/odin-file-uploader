@@ -11,12 +11,22 @@
         <a href="/folders/create">create a folder</a>
       </nav>
       <h1>home</h1>
-      <% if (locals.folders) { %>
+      <% if (locals.folders && folders.length > 0) { %>
       <h2>folders</h2>
       <ul role="list">
         <% folders.forEach(folder => { %>
         <li>
           <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
+        </li>
+        <% }) %>
+      </ul>
+      <% } %>
+      <% if (locals.files && files.length > 0) { %>
+      <h2>files</h2>
+      <ul role="list">
+        <% files.forEach(file => { %>
+        <li>
+          <a href="/files/<%= file.id %>"><%= file.originalName %></a>
         </li>
         <% }) %>
       </ul>
