@@ -1,3 +1,4 @@
+const { body, validationResult } = require("express-validator");
 const { prisma } = require("../auth/prisma");
 
 async function filesGet(req, res, next) {
@@ -80,7 +81,30 @@ async function renameGet(req, res, next) {
   }
 }
 
-// TODO: validate
+const validateName = [
+  body("name")
+    .isAlphanumeric()
+    .withMessage("Name must contain only letters and numbers.")
+    .isLength({ min: 1, max: 30 })
+    .withMessage("Name must be between 1 and 30 characters."),
+];
+async function checkFilenameValidation(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const { fileId } = req.params;
+    try {
+      const file = await prisma.file.findUniqueOrThrow({
+        where: {
+          id: Number(fileId),
+        },
+      });
+      return res.render("rename", { file, errors: errors.array() });
+    } catch (err) {
+      next(err);
+    }
+  }
+  next();
+}
 async function renamePost(req, res, next) {
   const { name } = req.body;
   const { fileId } = req.params;
@@ -128,6 +152,8 @@ module.exports = {
   fileGet,
   filePost,
   renameGet,
+  validateName,
+  checkFilenameValidation,
   renamePost,
   deleteGet,
 };

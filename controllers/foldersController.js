@@ -1,9 +1,17 @@
+const { validationResult } = require("express-validator");
 const { prisma } = require("../auth/prisma");
 
 function createGet(req, res) {
   res.render("create");
 }
 
+function checkNewFoldernameValidation(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.render("create", { errors: errors.array() });
+  }
+  next();
+}
 async function createPost(req, res, next) {
   try {
     const { name } = req.body;
@@ -38,12 +46,30 @@ async function renameGet(req, res, next) {
     const folder = await prisma.folder.findUniqueOrThrow({
       where: { id: Number(folderId) },
     });
+    console.log(folder);
     res.render("rename-folder", { folder });
   } catch (err) {
     next(err);
   }
 }
 
+async function checkFoldernameValidation(req, res, next) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const { folderId } = req.params;
+    try {
+      const folder = await prisma.folder.findUniqueOrThrow({
+        where: {
+          id: Number(folderId),
+        },
+      });
+      return res.render("rename-folder", { folder, errors: errors.array() });
+    } catch (err) {
+      next(err);
+    }
+  }
+  next();
+}
 async function renamePost(req, res, next) {
   const { name } = req.body;
   const { folderId } = req.params;
@@ -78,9 +104,11 @@ async function deleteGet(req, res, next) {
 
 module.exports = {
   createGet,
+  checkNewFoldernameValidation,
   createPost,
   folderGet,
   renameGet,
+  checkFoldernameValidation,
   renamePost,
   deleteGet,
 };

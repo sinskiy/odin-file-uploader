@@ -10,6 +10,8 @@ const {
   renameGet,
   deleteGet,
   renamePost,
+  validateName,
+  checkFilenameValidation,
 } = require("../controllers/filesController");
 const { isUser } = require("../controllers/authController");
 const router = Router();
@@ -20,7 +22,12 @@ router.post("/upload", upload.single("file"), uploadPost);
 router.get("/:fileId", fileGet);
 router.post("/:fileId", filePost);
 router.get("/:fileId/rename", renameGet);
-router.post("/:fileId/rename", renamePost);
+router.post(
+  "/:fileId/rename",
+  validateName,
+  checkFilenameValidation,
+  renamePost,
+);
 router.get("/:fileId/delete", deleteGet);
 
 module.exports = router;

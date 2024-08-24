@@ -8,17 +8,28 @@ const {
   renameGet,
   renamePost,
   deleteGet,
+  checkFoldernameValidation,
+  checkNewFoldernameValidation,
 } = require("../controllers/foldersController");
-const { uploadGet, uploadPost } = require("../controllers/filesController");
+const {
+  uploadGet,
+  uploadPost,
+  validateName,
+} = require("../controllers/filesController");
 const { isUser } = require("../controllers/authController");
 const router = Router();
 
 router.get("/create", isUser, createGet);
-router.post("/create", createPost);
-router.get("/:folderId", isUser, folderGet);
-router.get("/:folderId/rename", isUser, renameGet);
-router.post("/:folderId/rename", renamePost);
-router.get("/:folderId/upload", isUser, uploadGet);
+router.post("/create", validateName, checkNewFoldernameValidation, createPost);
+router.get("/:folderId", folderGet);
+router.get("/:folderId/rename", renameGet);
+router.post(
+  "/:folderId/rename",
+  validateName,
+  checkFoldernameValidation,
+  renamePost,
+);
+router.get("/:folderId/upload", uploadGet);
 router.post("/:folderId/upload", upload.single("file"), uploadPost);
 router.get("/:folderId/delete", deleteGet);
 
