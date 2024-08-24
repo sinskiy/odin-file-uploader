@@ -2,8 +2,6 @@ const multer = require("multer");
 const upload = multer({ dest: "public/uploads/" });
 const { Router } = require("express");
 const {
-  uploadGet,
-  uploadPost,
   filesGet,
   fileGet,
   filePost,
@@ -14,6 +12,7 @@ const {
   checkFilenameValidation,
 } = require("../controllers/filesController");
 const { isUser } = require("../controllers/authController");
+const { uploadGet, uploadPost } = require("../controllers/uploadController");
 const router = Router();
 
 router.get("/", filesGet);

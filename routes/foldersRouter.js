@@ -11,12 +11,9 @@ const {
   checkFoldernameValidation,
   checkNewFoldernameValidation,
 } = require("../controllers/foldersController");
-const {
-  uploadGet,
-  uploadPost,
-  validateName,
-} = require("../controllers/filesController");
+const { validateName } = require("../controllers/filesController");
 const { isUser } = require("../controllers/authController");
+const { uploadGet, uploadPost } = require("../controllers/uploadController");
 const router = Router();
 
 router.get("/create", isUser, createGet);

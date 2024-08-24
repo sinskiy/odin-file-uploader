@@ -11,32 +11,6 @@ async function filesGet(req, res, next) {
   }
 }
 
-// TODO: move to upload controller
-function uploadGet(req, res) {
-  res.render("upload");
-}
-
-async function uploadPost(req, res, next) {
-  //  TODO: render  with errors
-  if (!req.file) {
-    return res.render("upload");
-  }
-  const { folderId } = req.params;
-  const { originalname, filename } = req.file;
-  try {
-    await prisma.file.create({
-      data: {
-        originalName: originalname,
-        fileName: filename,
-        folderId: folderId ? Number(folderId) : null,
-      },
-    });
-    res.redirect("/");
-  } catch (err) {
-    next(err);
-  }
-}
-
 async function fileGet(req, res, next) {
   const { fileId } = req.params;
   try {
@@ -117,13 +91,6 @@ async function renamePost(req, res, next) {
         id: Number(fileId),
       },
     });
-    console.log(
-      await prisma.file.findUniqueOrThrow({
-        where: {
-          id: Number(fileId),
-        },
-      }),
-    );
     res.redirect(`/files/${fileId}`);
   } catch (err) {
     next(err);
@@ -147,8 +114,6 @@ async function deleteGet(req, res, next) {
 
 module.exports = {
   filesGet,
-  uploadGet,
-  uploadPost,
   fileGet,
   filePost,
   renameGet,

@@ -46,7 +46,6 @@ async function renameGet(req, res, next) {
     const folder = await prisma.folder.findUniqueOrThrow({
       where: { id: Number(folderId) },
     });
-    console.log(folder);
     res.render("rename-folder", { folder });
   } catch (err) {
     next(err);

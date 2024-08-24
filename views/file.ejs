@@ -7,7 +7,6 @@
   <body>
     <%- include('partials/header') %>
     <main>
-      <%# TODO: fix locals.title %>
       <h1><%= locals.title ??  'home' %></h1>
       <% if (locals.file) { %>
       <h2><%= file.originalName %></h2>
