@@ -1,16 +1,21 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <%- include('partials/head', { title: "Home" }) %>
+    <%- include('partials/head', { title: locals.folder ? folder.name +  ' folder' : "Home" }) %>
   </head>
   <body>
     <%- include('partials/header') %>
     <main>
       <nav>
-        <a href="/files/upload">upload a file</a>
+        <a href="<%= locals.folder ? folder.id : '/files' %>/upload"
+          >upload a file</a
+        >
+        <% if (locals.showFolders !== false) { %>
         <a href="/folders/create">create a folder</a>
+        <% } %>
       </nav>
-      <h1>home</h1>
+      <h1><%= locals.title ??  'home' %></h1>
+      <% if (locals.showFolders !== false) { %>
       <% if (locals.folders && folders.length > 0) { %>
       <h2>folders</h2>
       <ul role="list">
@@ -20,16 +25,23 @@
         </li>
         <% }) %>
       </ul>
+      <% } else { %>
+      <h2>no folders</h2>
+      <% } %>
       <% } %>
       <% if (locals.files && files.length > 0) { %>
       <h2>files</h2>
       <ul role="list">
         <% files.forEach(file => { %>
+        <% if (file.folderId === null || (locals.folder && file.folderId ===  folder.id)) { %>
         <li>
           <a href="/files/<%= file.id %>"><%= file.originalName %></a>
         </li>
+        <% } %>
         <% }) %>
       </ul>
+      <% } else { %>
+      <h2>no files</h2>
       <% } %>
     </main>
   </body>

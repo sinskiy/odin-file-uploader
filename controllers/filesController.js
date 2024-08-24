@@ -10,18 +10,21 @@ async function filesGet(req, res, next) {
   }
 }
 
+// TODO: move to upload controller
 function uploadGet(req, res) {
   res.render("upload");
 }
 
 async function uploadPost(req, res, next) {
-  console.log(req.file);
+  const { folderId } = req.params;
   const { originalname, filename } = req.file;
+  console.log(req.params, folderId ? Number(folderId) : null);
   try {
     await prisma.file.create({
       data: {
         originalName: originalname,
         fileName: filename,
+        folderId: folderId ? Number(folderId) : null,
       },
     });
     res.redirect("/");
