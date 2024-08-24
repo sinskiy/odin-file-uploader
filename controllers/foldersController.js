@@ -38,7 +38,6 @@ async function folderGet(req, res, next) {
     next(err);
   }
 }
-// TODO: after uploading a file to folder redirect to folder
 
 async function renameGet(req, res, next) {
   const { folderId } = req.params;

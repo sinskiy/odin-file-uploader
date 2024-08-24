@@ -22,7 +22,7 @@ async function uploadPost(req, res, next) {
         userId: req.user.id,
       },
     });
-    res.redirect("/");
+    res.redirect(folderId ? `/folders/${folderId}` : "/");
   } catch (err) {
     next(err);
   }

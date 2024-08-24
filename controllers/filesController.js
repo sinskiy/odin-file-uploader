@@ -111,7 +111,6 @@ async function deleteGet(req, res, next) {
         id: Number(fileId),
       },
     });
-    // TODO: redirect to folder if previous route was folder
     res.redirect("/");
   } catch (err) {
     next(err);
