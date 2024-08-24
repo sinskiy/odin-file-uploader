@@ -6,10 +6,11 @@ const {
   uploadPost,
   filesGet,
 } = require("../controllers/filesController");
+const { isUser } = require("../controllers/authController");
 const router = Router();
 
 router.get("/", filesGet);
-router.get("/upload", uploadGet);
+router.get("/upload", isUser, uploadGet);
 router.post("/upload", upload.single("file"), uploadPost);
 
 module.exports = router;
