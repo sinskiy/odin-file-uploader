@@ -9,9 +9,13 @@
     <main>
       <h1><%= locals.title ??  'home' %></h1>
       <% if (locals.file) { %>
-      <h2><%= file.originalName %></h2>
-      <p>TODO: time</p>
-      <p>TODO: size</p>
+      <h2 class="name"><%= file.originalName %></h2>
+      <p class="time">
+        <time datetime="<%= file.createdAt %>"
+          ><%= new Date(file.createdAt).toLocaleString() %></time
+        >
+      </p>
+      <p class="size"><%= file.size %> bytes</p>
       <nav class="file-nav">
         <form action="" method="post">
           <button type="submit" class="primary">download</button>

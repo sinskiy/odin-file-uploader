@@ -11,12 +11,13 @@ async function uploadPost(req, res, next) {
     });
   }
   const { folderId } = req.params;
-  const { originalname, filename } = req.file;
+  const { originalname, filename, size } = req.file;
   try {
     await prisma.file.create({
       data: {
         originalName: originalname,
         fileName: filename,
+        size,
         folderId: folderId ? Number(folderId) : null,
       },
     });
