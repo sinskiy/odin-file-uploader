@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head', { title: "Log in" }) %>
+    <link rel="stylesheet" href="/form.css" />
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main>
+      <h1>
+        rename
+        <%= locals.file ? file.originalName : "file" %>
+      </h1>
+      <%- include('partials/errors') %>
+      <form action="" method="post" class="form">
+        <div class="input-field">
+          <label for="name">name</label
+          ><input
+            type="text"
+            name="name"
+            id="name"
+            autocomplete="name"
+            value="<%= locals.file ? file.originalName : '' %>"
+          />
+        </div>
+        <button type="submit" class="primary">submit</button>
+      </form>
+    </main>
+  </body>
+</html>

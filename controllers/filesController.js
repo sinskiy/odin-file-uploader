@@ -22,7 +22,6 @@ async function uploadPost(req, res, next) {
   }
   const { folderId } = req.params;
   const { originalname, filename } = req.file;
-  console.log(req.params, folderId ? Number(folderId) : null);
   try {
     await prisma.file.create({
       data: {
@@ -67,6 +66,46 @@ async function filePost(req, res, next) {
   }
 }
 
+async function renameGet(req, res, next) {
+  const { fileId } = req.params;
+  try {
+    const file = await prisma.file.findUniqueOrThrow({
+      where: {
+        id: Number(fileId),
+      },
+    });
+    res.render("rename", { file });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// TODO: validate
+async function renamePost(req, res, next) {
+  const { name } = req.body;
+  const { fileId } = req.params;
+  try {
+    await prisma.file.update({
+      data: {
+        originalName: name,
+      },
+      where: {
+        id: Number(fileId),
+      },
+    });
+    console.log(
+      await prisma.file.findUniqueOrThrow({
+        where: {
+          id: Number(fileId),
+        },
+      }),
+    );
+    res.redirect(`/files/${fileId}`);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function deleteGet(req, res, next) {
   const { fileId } = req.params;
   try {
@@ -88,5 +127,7 @@ module.exports = {
   uploadPost,
   fileGet,
   filePost,
+  renameGet,
+  renamePost,
   deleteGet,
 };
