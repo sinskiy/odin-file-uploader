@@ -38,7 +38,7 @@
         <% files.forEach(file => { %>
         <% if (file.folderId === null || (locals.folder && file.folderId ===  folder.id)) { %>
         <li>
-          <a href="/files/<%= file.id %>"><%= file.originalName %></a>
+          <a href="/files/<%= file.id %>"><%= file.name %></a>
         </li>
         <% } %>
         <% }) %>

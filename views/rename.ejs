@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <%- include('partials/head', { title: `Rename ${locals.file ? file.originalName : 'file'}` }) %>
+    <%- include('partials/head', { title: `Rename ${locals.file ? file.name : 'file'}` }) %>
     <link rel="stylesheet" href="/form.css" />
   </head>
   <body>
@@ -9,7 +9,7 @@
     <main>
       <h1>
         rename
-        <%= locals.file ? file.originalName : "file" %>
+        <%= locals.file ? file.name : "file" %>
       </h1>
       <%- include('partials/errors') %>
       <form action="" method="post" class="form">
@@ -20,7 +20,7 @@
             name="name"
             id="name"
             autocomplete="name"
-            value="<%= locals.file ? file.originalName : '' %>"
+            value="<%= locals.file ? file.name : '' %>"
           />
         </div>
         <button type="submit" class="primary">submit</button>

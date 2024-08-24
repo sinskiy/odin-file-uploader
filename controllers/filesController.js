@@ -33,22 +33,6 @@ async function fileGet(req, res, next) {
   }
 }
 
-async function filePost(req, res, next) {
-  const { fileId } = req.params;
-  try {
-    const file = await prisma.file.findUniqueOrThrow({
-      where: {
-        id: Number(fileId),
-      },
-    });
-    // sus that we have to use public/, but it works
-    const path = `public/uploads/${file.fileName}`;
-    res.download(path, file.originalName);
-  } catch (err) {
-    next(err);
-  }
-}
-
 async function renameGet(req, res, next) {
   const { fileId } = req.params;
   try {
@@ -91,7 +75,7 @@ async function renamePost(req, res, next) {
   try {
     await prisma.file.update({
       data: {
-        originalName: name,
+        name,
       },
       where: {
         id: Number(fileId),
@@ -120,7 +104,6 @@ async function deleteGet(req, res, next) {
 module.exports = {
   filesGet,
   fileGet,
-  filePost,
   renameGet,
   validateName,
   checkFilenameValidation,

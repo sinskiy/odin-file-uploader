@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <%- include('partials/head', { title: locals.file ? file.originalName : "Home" }) %>
+    <%- include('partials/head', { title: locals.file ? file.name : "Home" }) %>
     <link rel="stylesheet" href="/file.css" />
   </head>
   <body>
@@ -9,7 +9,7 @@
     <main>
       <h1><%= locals.title ??  'home' %></h1>
       <% if (locals.file) { %>
-      <h2 class="name"><%= file.originalName %></h2>
+      <h2 class="name"><%= file.name %></h2>
       <p class="time">
         <time datetime="<%= file.createdAt %>"
           ><%= new Date(file.createdAt).toLocaleString() %></time
@@ -17,9 +17,7 @@
       </p>
       <p class="size"><%= file.size %> bytes</p>
       <nav class="file-nav">
-        <form action="" method="post">
-          <button type="submit" class="primary">download</button>
-        </form>
+        <a href="<%= file.url %>?download" download>download</a>
         <a href="/files/<%= file.id %>/rename">rename</a>
         <a href="/files/<%= file.id %>/delete">delete</a>
       </nav>

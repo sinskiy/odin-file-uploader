@@ -2,7 +2,6 @@ const { Router } = require("express");
 const {
   filesGet,
   fileGet,
-  filePost,
   renameGet,
   deleteGet,
   renamePost,
@@ -18,7 +17,6 @@ router.get("/", isUser, filesGet);
 router.get("/upload", isUser, uploadGet);
 router.post("/upload", upload.single("file"), uploadPost);
 router.get("/:fileId", fileGet);
-router.post("/:fileId", filePost);
 router.get("/:fileId/rename", renameGet);
 router.post(
   "/:fileId/rename",
