@@ -17,8 +17,7 @@
         <a href="/folders/<%= folder.id %>/delete">delete folder</a>
         <% } %>
       </nav>
-      <%# TODO: fix locals.title %>
-      <h1><%= locals.title ??  'home' %></h1>
+      <h1><%= locals.folder ? folder.name :  'home' %></h1>
       <% if (locals.showFolders !== false) { %>
       <% if (locals.folders && folders.length > 0) { %>
       <h2>folders</h2>
