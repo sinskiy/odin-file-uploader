@@ -21,9 +21,6 @@ model User {
 }
 
 model Folder {
-  id       Int      @id @default(autoincrement())
-  parentId Int      @unique
-  parent   Folder?  @relation("Parent", fields: [parentId], references: [id])
-  children Folder[] @relation("Parent")
-  name     String   @db.VarChar(30)
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(30)
 }

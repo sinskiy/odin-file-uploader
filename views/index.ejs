@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head', { title: "Home" }) %>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main>
+      <nav>
+        <a href="/files/upload">upload a file</a>
+        <a href="/folders/create">create a folder</a>
+      </nav>
+      <h1>home</h1>
+      <% if (locals.folders) { %>
+      <h2>folders</h2>
+      <ul role="list">
+        <% folders.forEach(folder => { %>
+        <li>
+          <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
+        </li>
+        <% }) %>
+      </ul>
+      <% } %>
+    </main>
+  </body>
+</html>

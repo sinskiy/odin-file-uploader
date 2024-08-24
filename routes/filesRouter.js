@@ -3,13 +3,13 @@ const upload = multer({ dest: "uploads/" });
 const { Router } = require("express");
 const {
   uploadGet,
-  uploadLog,
+  uploadPost,
   filesGet,
 } = require("../controllers/filesController");
 const router = Router();
 
 router.get("/", filesGet);
 router.get("/upload", uploadGet);
-router.post("/upload", upload.single("file"), uploadLog);
+router.post("/upload", upload.single("file"), uploadPost);
 
 module.exports = router;

@@ -1,14 +1,20 @@
-function filesGet(req, res) {
-  res.render("files");
+const { prisma } = require("../auth/prisma");
+
+async function filesGet(req, res, next) {
+  try {
+    const folders = await prisma.folder.findMany();
+    res.render("index", { folders });
+  } catch (err) {
+    next(err);
+  }
 }
 
 function uploadGet(req, res) {
   res.render("upload");
 }
 
-function uploadLog(req, res) {
-  console.log(req.file);
-  res.render("files");
+function uploadPost(req, res) {
+  res.redirect("/");
 }
 
-module.exports = { filesGet, uploadGet, uploadLog };
+module.exports = { filesGet, uploadGet, uploadPost };

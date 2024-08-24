@@ -7,16 +7,14 @@
   <body>
     <%- include('partials/header') %>
     <main>
-      <h1>upload a file</h1>
+      <h1>create a folder</h1>
       <%# TODO: check errors %>
       <%- include('partials/errors') %>
-      <form
-        action="/files/upload"
-        method="post"
-        enctype="multipart/form-data"
-        class="form"
-      >
-        <input type="file" name="file" />
+      <form action="/folders/create" method="post" class="form">
+        <div class="input-field">
+          <label for="name">name</label>
+          <input type="text" name="name" id="name" />
+        </div>
         <button type="submit" class="primary">submit</button>
       </form>
     </main>
