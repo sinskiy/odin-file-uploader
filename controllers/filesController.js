@@ -47,4 +47,19 @@ async function fileGet(req, res, next) {
   }
 }
 
-module.exports = { filesGet, uploadGet, uploadPost, fileGet };
+async function deleteGet(req, res, next) {
+  const { fileId } = req.params;
+  try {
+    await prisma.file.delete({
+      where: {
+        id: Number(fileId),
+      },
+    });
+    // TODO: redirect to folder if previous route was folder
+    res.redirect("/");
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { filesGet, uploadGet, uploadPost, fileGet, deleteGet };
