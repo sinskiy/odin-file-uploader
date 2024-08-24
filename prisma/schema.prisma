@@ -27,8 +27,9 @@ model Folder {
 }
 
 model File {
-  id       Int     @id @default(autoincrement())
-  name     String  @db.VarChar(255)
-  folder   Folder? @relation(fields: [folderId], references: [id])
-  folderId Int?
+  id           Int     @id @default(autoincrement())
+  originalName String  @db.VarChar(255)
+  fileName     String  @db.VarChar(255)
+  folder       Folder? @relation(fields: [folderId], references: [id])
+  folderId     Int?
 }
