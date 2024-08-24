@@ -3,8 +3,16 @@ const { prisma } = require("../lib/prisma");
 
 async function filesGet(req, res, next) {
   try {
-    const folders = await prisma.folder.findMany();
-    const files = await prisma.file.findMany();
+    const folders = await prisma.folder.findMany({
+      where: {
+        userId: req.user.id,
+      },
+    });
+    const files = await prisma.file.findMany({
+      where: {
+        userId: req.user.id,
+      },
+    });
     res.render("index", { files, folders });
   } catch (err) {
     next(err);

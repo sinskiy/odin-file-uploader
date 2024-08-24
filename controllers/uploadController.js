@@ -19,6 +19,7 @@ async function uploadPost(req, res, next) {
         fileName: filename,
         size,
         folderId: folderId ? Number(folderId) : null,
+        userId: req.user.id,
       },
     });
     res.redirect("/");

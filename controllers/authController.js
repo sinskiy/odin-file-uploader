@@ -68,7 +68,7 @@ async function signupPost(req, res, next) {
 
 function isUser(req, res, next) {
   if (!req.user) {
-    res.redirect("/signup");
+    return res.redirect("/signup");
   }
   next();
 }

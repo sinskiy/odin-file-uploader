@@ -15,7 +15,7 @@ const { isUser } = require("../controllers/authController");
 const { uploadGet, uploadPost } = require("../controllers/uploadController");
 const router = Router();
 
-router.get("/", filesGet);
+router.get("/", isUser, filesGet);
 router.get("/upload", isUser, uploadGet);
 router.post("/upload", upload.single("file"), uploadPost);
 router.get("/:fileId", fileGet);

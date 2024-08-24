@@ -15,7 +15,7 @@ function checkNewFoldernameValidation(req, res, next) {
 async function createPost(req, res, next) {
   try {
     const { name } = req.body;
-    await prisma.folder.create({ data: { name } });
+    await prisma.folder.create({ data: { name, userId: req.user.id } });
     res.redirect("/");
   } catch (err) {
     next(err);
