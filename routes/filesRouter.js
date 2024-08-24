@@ -1,5 +1,3 @@
-const multer = require("multer");
-const upload = multer({ dest: "public/uploads/" });
 const { Router } = require("express");
 const {
   filesGet,
@@ -13,6 +11,7 @@ const {
 } = require("../controllers/filesController");
 const { isUser } = require("../controllers/authController");
 const { uploadGet, uploadPost } = require("../controllers/uploadController");
+const upload = require("../lib/multer");
 const router = Router();
 
 router.get("/", isUser, filesGet);
