@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const { prisma } = require("../lib/prisma");
+const supabase = require("../lib/supabase");
 
 function loginGet(req, res) {
   res.render("login");
@@ -51,12 +52,20 @@ async function signupPost(req, res, next) {
       if (err) {
         next(err);
       }
-      await prisma.user.create({
+      const user = await prisma.user.create({
         data: {
           username,
           password: hashedPassword,
         },
       });
+
+      const { error } = await supabase.storage.createBucket(String(user.id), {
+        public: true,
+        fileSizeLimit: "1MB",
+      });
+      if (error) {
+        next(error);
+      }
     });
     res.redirect("/login");
   } catch (err) {
