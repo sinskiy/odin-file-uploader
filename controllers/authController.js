@@ -31,8 +31,6 @@ const validateUser = [
         throw new Error("Username must be unique.");
       }
     })
-    .isAlphanumeric()
-    .withMessage("Username must only contain letters and numbers.")
     .isLength({ min: 1, max: 30 })
     .withMessage("Username must be between 1 and 30 characters."),
   body("password")

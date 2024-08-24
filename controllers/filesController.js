@@ -65,8 +65,6 @@ async function renameGet(req, res, next) {
 
 const validateName = [
   body("name")
-    .isAlphanumeric()
-    .withMessage("Name must contain only letters and numbers.")
     .isLength({ min: 1, max: 30 })
     .withMessage("Name must be between 1 and 30 characters."),
 ];
