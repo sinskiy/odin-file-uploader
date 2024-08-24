@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // set up auth
 const { DAY } = require("./helpers");
 const session = require("express-session");
-const { prismaStore } = require("./auth/prisma");
+const { prismaStore } = require("./lib/prisma");
 const passport = require("passport");
 app.use(
   session({
@@ -29,7 +29,7 @@ app.use(
     store: prismaStore,
   }),
 );
-require("./auth/passport");
+require("./lib/passport");
 app.use(passport.session());
 
 app.use(async (req, res, next) => {

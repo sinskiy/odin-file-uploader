@@ -1,5 +1,5 @@
 const { body, validationResult } = require("express-validator");
-const { prisma } = require("../auth/prisma");
+const { prisma } = require("../lib/prisma");
 
 async function filesGet(req, res, next) {
   try {

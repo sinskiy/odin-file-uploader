@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
-const { prisma } = require("../auth/prisma");
+const { prisma } = require("../lib/prisma");
 
 function loginGet(req, res) {
   res.render("login");

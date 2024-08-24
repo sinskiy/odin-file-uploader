@@ -1,4 +1,4 @@
-const { prisma } = require("../auth/prisma");
+const { prisma } = require("../lib/prisma");
 
 function uploadGet(req, res) {
   res.render("upload");

@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-const { prisma } = require("../auth/prisma");
+const { prisma } = require("../lib/prisma");
 
 function createGet(req, res) {
   res.render("create");
