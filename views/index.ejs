@@ -16,6 +16,7 @@
         <% } %>
         <% if (locals.folder) { %>
         <a href="/folders/<%= folder.id %>/delete">delete folder</a>
+        <a href="/folders/<%= folder.id %>/rename">rename folder</a>
         <% } %>
       </nav>
       <h1><%= locals.folder ? folder.name :  'home' %></h1>

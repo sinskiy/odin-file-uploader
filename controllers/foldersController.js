@@ -32,6 +32,36 @@ async function folderGet(req, res, next) {
 }
 // TODO: after uploading a file to folder redirect to folder
 
+async function renameGet(req, res, next) {
+  const { folderId } = req.params;
+  try {
+    const folder = await prisma.folder.findUniqueOrThrow({
+      where: { id: Number(folderId) },
+    });
+    res.render("rename-folder", { folder });
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function renamePost(req, res, next) {
+  const { name } = req.body;
+  const { folderId } = req.params;
+  try {
+    await prisma.folder.update({
+      data: {
+        name,
+      },
+      where: {
+        id: Number(folderId),
+      },
+    });
+    res.redirect(`/folders/${folderId}`);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function deleteGet(req, res, next) {
   const { folderId } = req.params;
   try {
@@ -46,4 +76,11 @@ async function deleteGet(req, res, next) {
   }
 }
 
-module.exports = { createGet, createPost, folderGet, deleteGet };
+module.exports = {
+  createGet,
+  createPost,
+  folderGet,
+  renameGet,
+  renamePost,
+  deleteGet,
+};
