@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head', { title: locals.file ? file.originalName : "Home" }) %>
+  </head>
+  <body>
+    <%- include('partials/header') %>
+    <main>
+      <%# TODO: fix locals.title %>
+      <h1><%= locals.title ??  'home' %></h1>
+      <% if (locals.file) { %>
+      <h2><%= file.originalName %></h2>
+      <p>TODO: time</p>
+      <p>TODO: size</p>
+      <a href="/files/<%= file.id %>/delete">delete file</a>
+      <% } else { %>
+      <h2>no file found</h2>
+      <% } %>
+    </main>
+  </body>
+</html>

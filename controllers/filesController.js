@@ -33,4 +33,18 @@ async function uploadPost(req, res, next) {
   }
 }
 
-module.exports = { filesGet, uploadGet, uploadPost };
+async function fileGet(req, res, next) {
+  const { fileId } = req.params;
+  try {
+    const file = await prisma.file.findUniqueOrThrow({
+      where: {
+        id: Number(fileId),
+      },
+    });
+    res.render("file", { file });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { filesGet, uploadGet, uploadPost, fileGet };
